@@ -20,8 +20,28 @@ const hiddenWord = () => {
   return underscoreWord
 }
 
-const checkLetter = (letter, myWord = selectedWord) => {
+let correctLettersGuessed = hiddenWord()
+// let selectedLetter = null
+
+const isLetterOnBoard = (letter, myWord = selectedWord) => {
+  // selectedLetter = letter
   return myWord.split('').includes(letter)
 }
 
-export { testFunction, getWord, words, mistakeCounter, selectedWord, hiddenWord, checkLetter }
+const checkLetter = (letter, myWord) => {
+  if (isLetterOnBoard(letter, myWord)) {
+    const index = myWord.indexOf(letter)
+    const test = correctLettersGuessed.split('').toSpliced(index, 1, letter)
+    return test.join('')
+  }
+  console.log('did not work')
+}
+
+export { testFunction, getWord, words, mistakeCounter, selectedWord, hiddenWord, checkLetter, isLetterOnBoard }
+
+
+// if (myWord.split('').includes(letter)) {
+//   let index = myWord.indexOf(letter)
+//   correctLettersGuessed[index] = letter
+// }
+// console.log(correctLettersGuessed)

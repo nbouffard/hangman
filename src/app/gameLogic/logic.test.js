@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 // import { render, screen } from '@testing-library/react'
-import { testFunction, getWord, words, mistakeCounter, hiddenWord, selectedWord, checkLetter  } from "./logic"
+import { testFunction, getWord, words, mistakeCounter, hiddenWord, selectedWord, checkLetter, isLetterOnBoard  } from "./logic"
 
 test('it works', () => {
   expect(testFunction()).toBeDefined()
@@ -23,16 +23,23 @@ test("#hiddenWord - Length of '_' should match length of selectedWord", () => {
   expect(hiddenWord().length).toEqual(selectedWord.length)
 })
 
-test('#checkLetter - Should check if the letter is in the word', () => {
+test('#isLetterOnBoard - Should check if the letter is in the word', () => {
   const myWord = getWord(words, 'whatever')
-  expect(checkLetter('w', myWord)).toBeDefined()
-  expect(checkLetter('w', myWord)).toBe(true)
+  expect(isLetterOnBoard('w', myWord)).toBeDefined()
+  expect(isLetterOnBoard('w', myWord)).toBe(true)
 })
 
-test('#checkLetter - Should check if the letter is NOT the word', () => {
+test('#isLetterOnBoard - Should check if the letter is NOT the word', () => {
   const myWord = getWord(words, 'whatever')
-  expect(checkLetter('z', myWord)).toBeDefined()
-  expect(checkLetter('z', myWord)).toBe(false)
+  expect(isLetterOnBoard('z', myWord)).toBeDefined()
+  expect(isLetterOnBoard('z', myWord)).toBe(false)
+})
+
+test('#checkLetter - Should replace _ with letter if correct', () => {
+  const myWord = getWord(words, 'whatever')
+  expect(checkLetter('w', myWord)).toBeDefined()
+  expect(checkLetter('w', myWord)).toBe('w_______')
+
 })
 
 test.skip('Should not add more letters to the board if game is lost', () => {
