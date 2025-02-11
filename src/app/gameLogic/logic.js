@@ -1,47 +1,61 @@
-let numOfMistakes = 7
+let selectedWord;
+let guessedWord;
+let numOfMistakes;
+const words = ['duncan', 'mittens', 'coco', 'kenco', 'kitty', 'benji', 'mazikeen']
 
 const testFunction = () => 1
 
-const words = ['duncan', 'mittens', 'coco', 'kenco', 'kitty', 'benji', 'mazikeen']
-
-const getWord = (arrayOfWords = words, overridingWord) => {
+const createSelectedWord = (arrayOfWords, overridingWord) => {
   const randomIndex = Math.floor(Math.random() * arrayOfWords.length)
   return overridingWord || arrayOfWords[randomIndex];
 }
 
-const mistakeCounter = () => {
-  return numOfMistakes
+const createGuessedWord = (word) => {
+  return word.split('').map(() => '_').join('')
 }
 
-let selectedWord = getWord();
-
-const hiddenWord = () => {
-  const underscoreWord = selectedWord.split('').map(() => '_').join('')
-  return underscoreWord
+const start = (arrayOfWords = words, overridingWord) => {
+  selectedWord = createSelectedWord(arrayOfWords, overridingWord);
+  guessedWord = createGuessedWord(selectedWord)
+  numOfMistakes = 7
 }
 
-let correctLettersGuessed = hiddenWord()
-// let selectedLetter = null
-
-const isLetterOnBoard = (letter, myWord = selectedWord) => {
-  // selectedLetter = letter
-  return myWord.split('').includes(letter)
+const isLetterInWord = (letter) => {
+  return selectedWord.split('').includes(letter)
 }
 
-const checkLetter = (letter, myWord) => {
-  if (isLetterOnBoard(letter, myWord)) {
-    const index = myWord.indexOf(letter)
-    const test = correctLettersGuessed.split('').toSpliced(index, 1, letter)
-    return test.join('')
+const updateGuessedWord = (letter) => {
+  const indexes = []
+  selectedWord.split('').forEach((l, index) => {
+    if (l === letter) {
+      indexes.push(index)
+    }
+  })
+  indexes.forEach((i) => {
+    guessedWord = guessedWord.split('').toSpliced(i, 1, letter).join('')
+  })
+  return guessedWord
+}
+
+const checkLetter = (letter) => {
+  if (numOfMistakes > 0 && guessedWord !== selectedWord) {
+    if (isLetterInWord(letter)) {
+      return updateGuessedWord(letter)
+    } else {
+      numOfMistakes -= 1
+      return numOfMistakes
+    }
   }
-  console.log('did not work')
 }
 
-export { testFunction, getWord, words, mistakeCounter, selectedWord, hiddenWord, checkLetter, isLetterOnBoard }
+const checkGame = () => {
+  if (guessedWord === selectedWord && numOfMistakes > 0) {
+    return 'win'
+  } else if (guessedWord !== selectedWord && numOfMistakes > 0){
+    return 'again'
+  } else {
+    return 'lost'
+  }
+}
 
-
-// if (myWord.split('').includes(letter)) {
-//   let index = myWord.indexOf(letter)
-//   correctLettersGuessed[index] = letter
-// }
-// console.log(correctLettersGuessed)
+export { testFunction, words, mistakeCounter, selectedWord, checkLetter, isLetterInWord, start, createGuessedWord, createSelectedWord, guessedWord, updateGuessedWord, checkGame, numOfMistakes, restart }
