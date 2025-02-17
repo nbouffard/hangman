@@ -27,13 +27,20 @@ export const appSlice = createSlice({
       }
     },
     checkGame: (state) => {
-      if (state.guessedWord === state.selectedWord && state.numOfMistakes > 0) {
-          window.alert('You Won!!!')
-        } else if (state.guessedWord !== state.selectedWord && state.numOfMistakes > 0){
-          console.log('try again')
-        } else {
-          console.log('lost!')
-        }
+      if (state.numOfMistakes === 0) {
+        window.alert('you lose!')
+      } else if (state.guessedWord !== state.selectedWord && state.numOfMistakes > 0) {
+        console.log('try again')
+      } else {
+        window.alert('you win!')
+      }
+    //   if (state.guessedWord === state.selectedWord && state.numOfMistakes > 0) {
+    //       window.alert('You Won!!!')
+    //     } else if (state.guessedWord !== state.selectedWord && state.numOfMistakes > 0){
+    //       console.log('try again')
+    //     } else {
+    //       console.log('lost!')
+    //     }
     }
   }
 })
