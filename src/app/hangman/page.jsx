@@ -71,7 +71,7 @@ export default function Page() {
           <div className="w-[400px] h-[200px] flex justify-center items-center bg-blue-100">
             <DisplayGuessWord guessedWord={guessedWord}/>
           </div>
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-6">
             <LetterKey dispatch={dispatch}/>
           </div>
         </div>
