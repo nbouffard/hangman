@@ -1,6 +1,7 @@
 'use client'
 import { useSelector, useDispatch } from "react-redux";
 import { start, checkLetter, checkGame } from '../../store/appSlice'
+import Image from "next/image";
 
 const StartGame = ({dispatch}) => {
   return(
@@ -8,10 +9,10 @@ const StartGame = ({dispatch}) => {
   )
 }
 
-const DisplayHangman = ({mistakes}) => {
-  console.log(mistakes)
+// const DisplayHangman = ({mistakes}) => {
+//   console.log(mistakes)
 
-}
+// }
 
 const disableLetter = (event) => {
   const letterToDisable = event.target
@@ -37,10 +38,17 @@ const LetterKey = ({dispatch}) => {
 }
 
 const MistakeCounter = ({mistakes}) => {
-  const x = '❌'
-  return(
-    <h1 className="text-4xl h-24 min-w-24">{x.repeat(mistakes)}</h1>
-  )
+  // const imgPath = `../images/${mistakes}.png`
+  if (mistakes > 0) {
+      return(
+      <Image
+        src={`/images/${mistakes}.png`}
+        width={400}
+        height={400}
+        alt={`image of hangman at mistake no.${mistakes}`}
+      />
+    )
+    }
 }
 
 const DisplayGuessWord = ({guessedWord}) => {
@@ -62,7 +70,7 @@ export default function Page() {
     <div className="absolute inset-0 bg-green-200 flex flex-col justify-center items-center">
       <h1 className="h-12 min-w-24 flex justify-center">{gameStatus}</h1>
       <StartGame dispatch={dispatch} />
-      <DisplayHangman mistakes={numOfMistakes} />
+      {/* <DisplayHangman mistakes={numOfMistakes} /> */}
       <div className="w-[400px] h-[200px] flex justify-center items-center bg-blue-100">
         <DisplayGuessWord guessedWord={guessedWord}/>
       </div>
