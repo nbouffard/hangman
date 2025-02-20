@@ -17,7 +17,7 @@ const createGuessedWord = (word) => {
 const start = (arrayOfWords = words, overridingWord) => {
   selectedWord = createSelectedWord(arrayOfWords, overridingWord);
   guessedWord = createGuessedWord(selectedWord)
-  numOfMistakes = 7
+  numOfMistakes = 0
 }
 
 const isLetterInWord = (letter, word = selectedWord) => {
@@ -40,20 +40,20 @@ const updateGuessedWord = (letter, gWord = guessedWord, sWord = selectedWord) =>
 }
 
 const checkLetter = (letter) => {
-  if (numOfMistakes > 0 && guessedWord !== selectedWord) {
+  if (numOfMistakes < 7 && guessedWord !== selectedWord) {
     if (isLetterInWord(letter)) {
       return updateGuessedWord(letter)
     } else {
-      numOfMistakes -= 1
+      numOfMistakes += 1
       return numOfMistakes
     }
   }
 }
 
 const checkGame = () => {
-  if (guessedWord === selectedWord && numOfMistakes > 0) {
+  if (guessedWord === selectedWord && numOfMistakes < 7) {
     return 'win'
-  } else if (guessedWord !== selectedWord && numOfMistakes > 0){
+  } else if (guessedWord !== selectedWord && numOfMistakes < 7){
     return 'again'
   } else {
     return 'lost'

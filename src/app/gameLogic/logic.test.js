@@ -47,8 +47,8 @@ test('#checkLetter - Should replace _ with letter if correct', () => {
 test('#checkLetter - Should return number of mistakes if letter is incorrect', () => {
   start(words, 'whatever')
   expect(checkLetter('e')).toBeDefined()
-  expect(checkLetter('f')).toBe(6)
-  expect(checkLetter('f')).toBe(5)
+  expect(checkLetter('f')).toBe(1)
+  expect(checkLetter('f')).toBe(2)
 })
 
 test('#checkGame - Should not add more letters to the board if game is lost', () => {
@@ -58,7 +58,7 @@ test('#checkGame - Should not add more letters to the board if game is lost', ()
   checkLetter('o')
   checkLetter('k')
   expect(checkGame()).toBeDefined()
-  expect(numOfMistakes).toBe(6)
+  expect(numOfMistakes).toBe(1)
 })
 
 test('#checkGame - Should not add more letters to the board if game is won', () => {
@@ -107,12 +107,12 @@ test('restarting should create a new word, data should be reset', () => {
   checkLetter('a')
   checkLetter('b')
   expect(selectedWord).toBe('book')
-  expect(numOfMistakes).toBe(6)
+  expect(numOfMistakes).toBe(1)
   expect(guessedWord).toBe('b___')
   start(words, 'clock')
   checkLetter('o')
   checkLetter('k')
   expect(selectedWord).toBe('clock')
-  expect(numOfMistakes).toBe(7)
+  expect(numOfMistakes).toBe(0)
   expect(guessedWord).toBe('__o_k')
 })

@@ -1,13 +1,15 @@
 'use client'
 import { useSelector, useDispatch } from "react-redux";
 import { start, checkLetter, checkGame } from '../../store/appSlice'
-import { useState } from "react";
-// import { guessedWord } from "../gameLogic/logic";
 
 const StartGame = ({dispatch}) => {
   return(
     <button className='p-4 bg-blue-500 hover:bg-blue-300 rounded-md m-4' onClick={() => {dispatch(start()), reset()}}>Start</button>
   )
+}
+
+const DisplayHangman = ({mistakes}) => {
+
 }
 
 const disableLetter = (event) => {
@@ -60,6 +62,7 @@ export default function Page() {
     <div className="absolute inset-0 bg-green-200 flex flex-col justify-center items-center">
       <h1 className="h-12 min-w-24 flex justify-center">{gameStatus}</h1>
       <StartGame dispatch={dispatch} />
+      <DisplayHangman mistakes={numOfMistakes} />
       <div className="w-[400px] h-[200px] flex justify-center items-center bg-blue-100">
         <DisplayGuessWord guessedWord={guessedWord}/>
       </div>

@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
    selectedWord: '',
    guessedWord: '',
-   numOfMistakes: 7,
+   numOfMistakes: 0,
    gameStatus: ''
   }
 
@@ -15,7 +15,7 @@ export const appSlice = createSlice({
     start: state => {
         state.selectedWord = createSelectedWord();
         state.guessedWord = createGuessedWord(state.selectedWord);
-        state.numOfMistakes = 7
+        state.numOfMistakes = 0
         state.gameStatus = ''
     },
     checkLetter: (state, action) => {
@@ -24,12 +24,12 @@ export const appSlice = createSlice({
         if (isLetterInWord(letter, state.selectedWord)) {
           state.guessedWord = updateGuessedWord(letter, state.guessedWord, state.selectedWord)
         } else {
-          state.numOfMistakes -= 1
+          state.numOfMistakes += 1
         }
       }
     },
     checkGame: (state) => {
-      if (state.numOfMistakes === 0) {
+      if (state.numOfMistakes === 7) {
         state.gameStatus = 'lost'
       } else if (state.guessedWord !== state.selectedWord && state.numOfMistakes > 0) {
         console.log('try again')
