@@ -9,6 +9,7 @@ const StartGame = ({dispatch}) => {
 }
 
 const DisplayHangman = ({mistakes}) => {
+  console.log(mistakes)
 
 }
 
@@ -26,7 +27,6 @@ const reset = () => {
   const letters = document.querySelectorAll('#letters')
   letters.forEach((letter) => {
     letter.removeAttribute('disabled')
-    // console.log(letter.classList)
     letter.classList.replace('text-red-200', 'text-black-400')
   })
 }

@@ -20,7 +20,7 @@ export const appSlice = createSlice({
     },
     checkLetter: (state, action) => {
       const letter = action.payload
-      if (state.numOfMistakes > 0 && state.guessedWord !== state.selectedWord) {
+      if (state.numOfMistakes < 7 && state.guessedWord !== state.selectedWord) {
         if (isLetterInWord(letter, state.selectedWord)) {
           state.guessedWord = updateGuessedWord(letter, state.guessedWord, state.selectedWord)
         } else {
@@ -31,7 +31,7 @@ export const appSlice = createSlice({
     checkGame: (state) => {
       if (state.numOfMistakes === 7) {
         state.gameStatus = 'lost'
-      } else if (state.guessedWord !== state.selectedWord && state.numOfMistakes > 0) {
+      } else if (state.guessedWord !== state.selectedWord && state.numOfMistakes < 7) {
         console.log('try again')
       } else {
         state.gameStatus = 'win'
