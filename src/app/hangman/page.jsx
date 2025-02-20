@@ -9,11 +9,6 @@ const StartGame = ({dispatch}) => {
   )
 }
 
-// const DisplayHangman = ({mistakes}) => {
-//   console.log(mistakes)
-
-// }
-
 const disableLetter = (event) => {
   const letterToDisable = event.target
   letterToDisable.setAttribute('disabled', '')
@@ -38,17 +33,14 @@ const LetterKey = ({dispatch}) => {
 }
 
 const MistakeCounter = ({mistakes}) => {
-  // const imgPath = `../images/${mistakes}.png`
-  if (mistakes > 0) {
-      return(
-      <Image
-        src={`/images/${mistakes}.png`}
-        width={400}
-        height={400}
-        alt={`image of hangman at mistake no.${mistakes}`}
-      />
-    )
-    }
+  return(
+    <Image
+    src={`/images/${mistakes}.png`}
+    width={400}
+    height={400}
+    alt={`image of hangman at mistake no.${mistakes}`}
+  />
+  )
 }
 
 const DisplayGuessWord = ({guessedWord}) => {
@@ -67,19 +59,23 @@ export default function Page() {
   const dispatch = useDispatch()
   return(
     <>
-    <div className="absolute inset-0 bg-green-200 flex flex-col justify-center items-center">
-      <h1 className="h-12 min-w-24 flex justify-center">{gameStatus}</h1>
-      <StartGame dispatch={dispatch} />
-      {/* <DisplayHangman mistakes={numOfMistakes} /> */}
-      <div className="w-[400px] h-[200px] flex justify-center items-center bg-blue-100">
-        <DisplayGuessWord guessedWord={guessedWord}/>
-      </div>
-      <div className="flex justify-between">
-        <LetterKey dispatch={dispatch}/>
-      </div>
-      <MistakeCounter mistakes={numOfMistakes}/>
+    <div className="absolute inset-0 bg-green-200 flex">
+        <div className="w-6/12">
+          <h1 className="h-12 min-w-24 flex justify-center">{gameStatus}</h1>
+          <div className="h-[400px] min-w-[400px] flex justify-center">
+            <MistakeCounter mistakes={numOfMistakes}/>
+          </div>
+        </div>
+        <div>
+          <StartGame dispatch={dispatch} />
+          <div className="w-[400px] h-[200px] flex justify-center items-center bg-blue-100">
+            <DisplayGuessWord guessedWord={guessedWord}/>
+          </div>
+          <div className="grid grid-cols-4">
+            <LetterKey dispatch={dispatch}/>
+          </div>
+        </div>
     </div>
-
     </>
   )
 }
